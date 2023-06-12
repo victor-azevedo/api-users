@@ -13,4 +13,10 @@ const getUser = (name) => {
   return userFound;
 };
 
-module.exports = { getUser };
+const getUsers = () => {
+  const usersList = userRepository.getUsers();
+
+  return usersList;
+};
+
+module.exports = { getUser, getUsers };

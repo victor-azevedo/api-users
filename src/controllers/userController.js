@@ -13,4 +13,14 @@ const getUser = (req, res) => {
   }
 };
 
-module.exports = { getUser };
+const getUsers = (req, res) => {
+  try {
+    const usersList = userService.getUsers();
+
+    return res.send(usersList);
+  } catch (error) {
+    handleRequestError(error, res);
+  }
+};
+
+module.exports = { getUser, getUsers };
