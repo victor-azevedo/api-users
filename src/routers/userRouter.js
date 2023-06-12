@@ -11,7 +11,7 @@ const userRouter = Router();
 userRouter.get("/user", userController.getUser);
 userRouter.get("/users", userController.getUsers);
 userRouter.post("/users", userController.postUser);
-userRouter.delete("/users", teste3);
+userRouter.delete("/users", userController.deleteUser);
 userRouter.put("/users", teste4);
 userRouter.get("/users/access", teste5);
 

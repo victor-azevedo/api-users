@@ -36,4 +36,19 @@ const postUser = (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers, postUser };
+// TEST 4: delete a user
+const deleteUser = (req, res) => {
+  try {
+    const { name } = req.query;
+
+    userService.deleteUser(name);
+
+    return res
+      .status(200)
+      .send({ message: `User '${name}' deleted with success` });
+  } catch (error) {
+    handleRequestError(error, res);
+  }
+};
+
+module.exports = { getUser, getUsers, postUser, deleteUser };

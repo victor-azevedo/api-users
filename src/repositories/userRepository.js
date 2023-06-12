@@ -15,10 +15,19 @@ const createUser = (newUser) => {
   return newUserData;
 };
 
+// TEST 4: delete a user
+const deleteUser = (name) => {
+  const indexUserToDelete = usersData.findIndex((user) => user.name === name);
+  if (indexUserToDelete < 0) return false;
+
+  usersData.splice(indexUserToDelete, 1);
+  return true;
+};
+
 // Create a id for new user
 const createIdToNewUser = () => {
   const { id: lastUsersDataId } = usersData.slice(-1)[0];
   return lastUsersDataId + 1;
 };
 
-module.exports = { getUsers, createUser };
+module.exports = { getUsers, createUser, deleteUser };

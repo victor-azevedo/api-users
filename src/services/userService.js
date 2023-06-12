@@ -29,4 +29,14 @@ const createUser = ({ name, job }) => {
   return userCreated;
 };
 
-module.exports = { getUser, getUsers, createUser };
+// TEST 4: delete a user
+const deleteUser = (name) => {
+  if (!name) throw new AppError("Required query field: name", 400);
+
+  const isUserDeleted = userRepository.deleteUser(name);
+  if (!isUserDeleted) throw new AppError("User not found", 404);
+
+  return;
+};
+
+module.exports = { getUser, getUsers, createUser, deleteUser };
