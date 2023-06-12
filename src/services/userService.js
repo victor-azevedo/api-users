@@ -1,5 +1,6 @@
 const userRepository = require("../repositories/userRepository");
 const AppError = require("../errors/AppError");
+const notFoundError = require("../errors/notFoundError");
 
 // TEST 1:
 const getUser = (name) => {
@@ -7,7 +8,7 @@ const getUser = (name) => {
 
   const userFound = userRepository.getUser(name);
 
-  if (!userFound) throw new AppError("User not found", 404);
+  if (!userFound) notFoundError();
 
   return userFound;
 };
@@ -32,7 +33,7 @@ const deleteUser = (name) => {
   validateUserQueryName(name);
 
   const isUserDeleted = userRepository.deleteUser(name);
-  if (!isUserDeleted) throw new AppError("User not found", 404);
+  if (!isUserDeleted) notFoundError();
 
   return;
 };
@@ -44,7 +45,7 @@ const updateUser = ({ id, name, job }) => {
 
   const userUpdated = userRepository.updateUser({ id, name, job });
 
-  if (!userUpdated) throw new AppError("User not found", 404);
+  if (!userUpdated) notFoundError();
 
   return userUpdated;
 };
@@ -55,7 +56,7 @@ const userAccess = (name) => {
 
   const userAccessCount = userRepository.userAccess(name);
 
-  if (userAccessCount === false) throw new AppError("User not found", 404);
+  if (userAccessCount === false) notFoundError();
 
   return userAccessCount;
 };
@@ -73,13 +74,17 @@ module.exports = {
 
 const validateUserBody = ({ name, job }) => {
   if (!name || !job)
-    throw new AppError("Required body field: {name, job}", 422);
+    throw new AppError("Requer 'body' com campos: {name, job}", 422);
 };
 
 const validateUserQueryName = (name) => {
-  if (!name) throw new AppError("Required query field: name", 400);
+  if (!name) throw new AppError("Requer 'query' com campos: 'name'", 400);
 };
 
 const validateUserQueryId = (id) => {
-  if (!id) throw new AppError("Required query field: id must be a number", 422);
+  if (!id)
+    throw new AppError(
+      "Requer 'query' com campo: 'id' que tem ser um número",
+      422
+    );
 };
