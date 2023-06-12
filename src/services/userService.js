@@ -6,7 +6,7 @@ const notFoundError = require("../errors/notFoundError");
 const getUser = (name) => {
   validateUserQueryName(name);
 
-  const userFound = userRepository.getUser(name);
+  const userFound = userRepository.getUserByName(name, true);
 
   if (!userFound) notFoundError();
 
@@ -26,12 +26,18 @@ const createUser = ({ name, job }) => {
 
   const userCreated = userRepository.createUser({ name, job });
 
+  if (!userCreated)
+    throw new AppError("'name' já cadastrado por outro usuário", 409);
+
   return userCreated;
 };
 
 // TEST 3: delete a user
 const deleteUser = (name) => {
   validateUserQueryName(name);
+
+  const userFound = userRepository.getUserByName(name);
+  if (!userFound) notFoundError();
 
   const isUserDeleted = userRepository.deleteUser(name);
   if (!isUserDeleted) notFoundError();
@@ -44,9 +50,14 @@ const updateUser = ({ id, name, job }) => {
   validateUserQueryId(id);
   validateUserBody({ name, job });
 
-  const userUpdated = userRepository.updateUser({ id, name, job });
+  const userFound = userRepository.getUserById(id);
+  if (!userFound) notFoundError();
 
-  if (!userUpdated) notFoundError();
+  const userSameNameFound = userRepository.getUserByName(name);
+  if (userSameNameFound && userSameNameFound.id !== id)
+    throw new AppError("'name' já cadastrado por outro usuário", 409);
+
+  const userUpdated = userRepository.updateUser({ id, name, job });
 
   return userUpdated;
 };
@@ -57,7 +68,7 @@ const userAccess = (name) => {
 
   const userAccessCount = userRepository.userAccess(name);
 
-  if (userAccessCount === false) notFoundError();
+  if (userAccessCount < 0) notFoundError();
 
   return userAccessCount;
 };

@@ -1,61 +1,55 @@
-const usersData = require("../../mock/usersData");
-
-const usersAccessTable = {};
+const {
+  findUserByNameDB,
+  findUserByIdDB,
+  findAllUsersDB,
+  insertUserDB,
+  deleteUserByNameDB,
+  updateUserByIdDB,
+  getUserAccessCountDB,
+} = require("../db");
 
 // TEST 1: get a user
-const getUser = (name) => {
-  const indexUserToFind = findIndex({ name });
-  if (indexUserToFind < 0) return false;
+const getUserByName = (name, toCount = false) => {
+  const userFound = findUserByNameDB(name, toCount);
 
-  incrementUserAccess(name);
+  return userFound;
+};
 
-  return usersData[indexUserToFind];
+const getUserById = (id) => {
+  const userFound = findUserByIdDB(id);
+
+  return userFound;
 };
 
 // TEST 2: get users
 const getUsers = () => {
-  const users = usersData;
+  const users = findAllUsersDB();
   return users;
 };
 
 // TEST 2: create a user
-const createUser = (newUser) => {
-  const id = createIdToNewUser();
-
-  const newUserData = { id, ...newUser };
-  usersData.push(newUserData);
-
-  return newUserData;
+const createUser = ({ name, job }) => {
+  return insertUserDB({ name, job });
 };
 
 // TEST 3: delete a user
 const deleteUser = (name) => {
-  const indexUserToDelete = findIndex({ name });
-  if (indexUserToDelete < 0) return false;
-
-  usersData.splice(indexUserToDelete, 1);
-  return true;
+  return deleteUserByNameDB(name);
 };
 
 // TEST 4: delete a user
 const updateUser = ({ id, name, job }) => {
-  const indexUserToUpdate = findIndex({ id });
-  if (indexUserToUpdate < 0) return false;
-
-  usersData[indexUserToUpdate] = { id, name, job };
-  return usersData[indexUserToUpdate];
+  return updateUserByIdDB({ id, name, job });
 };
 
 // TEST 5: count a user access
 const userAccess = (name) => {
-  const indexUserToCount = findIndex({ name });
-  if (indexUserToCount < 0) return false;
-
-  return getUserAccessCount(name);
+  return getUserAccessCountDB(name);
 };
 
 module.exports = {
-  getUser,
+  getUserByName,
+  getUserById,
   getUsers,
   createUser,
   deleteUser,
@@ -64,24 +58,3 @@ module.exports = {
 };
 
 // LOCAL FUNCTIONS
-
-const incrementUserAccess = (name) => {
-  usersAccessTable[name] !== undefined
-    ? usersAccessTable[name]++
-    : (usersAccessTable[name] = 1);
-};
-
-const getUserAccessCount = (name) => {
-  return usersAccessTable[name] || 0;
-};
-
-const findIndex = ({ id, name }) => {
-  if (id) return usersData.findIndex((user) => user.id === id);
-  if (name) return usersData.findIndex((user) => user.name === name);
-};
-
-// Create a id for new user
-const createIdToNewUser = () => {
-  const { id: lastUsersDataId } = usersData.slice(-1)[0];
-  return lastUsersDataId + 1;
-};
