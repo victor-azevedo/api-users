@@ -12,6 +12,6 @@ userRouter.get("/users", userController.getUsers);
 userRouter.post("/users", userController.postUser);
 userRouter.delete("/users", userController.deleteUser);
 userRouter.put("/users", userController.updateUser);
-userRouter.get("/users/access", teste5);
+userRouter.get("/users/access", userController.userAccess);
 
 module.exports = userRouter;
