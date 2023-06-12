@@ -1,4 +1,4 @@
-const data = require("./fakeData");
+const data = require("../../mock/fakeData");
 
 module.exports = function (req, res) {
   const name = req.body.name;
