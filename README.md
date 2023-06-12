@@ -26,6 +26,12 @@ Tem a responsabilidade de processar e manipular as requisições e respostas HTT
 
 ## Melhorias globais realizadas
 
+* Foi simulado um banco de dados na pasta 'db'. As buscas tanto relacionado ao 'name' quanto ao 'id' são feitas utilizando o conceito de hashtable, o que torna a busca mais eficiente uma vez que a complexidade de tempo cai para O(1) ao invés de de uma busca utilizando 'for' em todo o array que é de O(n). Em contrapartida há necessidade de mais espaço para armazenar os dados das hastables.
+
+* Criado método para criação de um 'id' único, baseado no valor máximo do 'id' encontrado na base de dados ao iniciar a aplicação. Cada 'id' novo é criado dinamicamente a medida que novas inserções são feitas no banco fake.
+
+* Criado condição de que o 'name' seja único, uma vez que são realizadas operações de delete e pelo 'name'. Dessa forma nunca haverá dois usuários com o mesmo nome e nem será possível apagar os dados de um usuário indesejado.
+
 * Substituição de 'var' por 'const': Garante o uso de variáveis imutáveis, evitando que uma variável receba acidentalmente um valor não esperado, ainda mais pelo fato de que 'var' tem escopo global, enquanto que 'const' tem escopo de bloco.
 
 * Remoção da dependência 'body-parser': como esta aplicação usa uma versão do express maior do que a 4.16, não há mais a necessidade do uso de 'body-parser'
@@ -49,7 +55,7 @@ GET em /user
 GET em /users 
 
 Validação do parâmetro 'name' sem quebrar a aplicação e gerando resposta adequada ao cliente.
-Uso de função 'findIndex' que é reaproveitada por outros endpoints e faz uso de .findIndex().
+Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
 
 ## Melhorias teste2.js
 
@@ -57,6 +63,7 @@ POST em /users
 
 Corrigido erro do nome da variável 'job'.
 Validação dos parâmetros 'name' e 'job' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+Validação que evita a criação de usuários com 'name' já existente na base de dados.
 Inserção de 'id' ao usuário criado.
 Resposta adequada: HTTP status 201 para entidades que são criadas.
 
@@ -66,7 +73,7 @@ Resposta adequada: HTTP status 201 para entidades que são criadas.
 DELETE em /users
 
 Validação do parâmetro 'name' sem quebrar a aplicação e gerando resposta adequada ao cliente.
-Uso de função 'findIndex' que é reaproveitada por outros endpoints e faz uso de .findIndex().
+Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
 Resposta ao cliente em JSON com campo message.
 
 ## Melhorias teste4.js
@@ -74,14 +81,16 @@ Resposta ao cliente em JSON com campo message.
 PUT em /users
 
 Validação do parâmetro 'id' sem quebrar a aplicação e gerando resposta adequada ao cliente.
-Validação dos parâmetros 'name' e 'job' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
+Validação que evita a atualizar os dados de um usuário com 'name' já existente de outro usuário.
+
 
 ## Melhorias teste5.js
 
 GET /users/access
 
 Validação do parâmetro 'name' sem quebrar a aplicação e gerando resposta adequada ao cliente.
-Criado hashTable no 'Repository' para armazenar a quantidade de acessos a um determinado 'user' pela rota GET /user.
+Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
 
 ## Melhorias teste6.js
 
