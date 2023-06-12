@@ -13,7 +13,7 @@ const getUser = (req, res) => {
   }
 };
 
-const getUsers = (req, res) => {
+const getUsers = (_req, res) => {
   try {
     const usersList = userService.getUsers();
 
@@ -23,4 +23,17 @@ const getUsers = (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers };
+// TEST 3: create a user
+const postUser = (req, res) => {
+  try {
+    const { name, job } = req.body;
+
+    const userCreated = userService.createUser({ name, job });
+
+    return res.status(201).send(userCreated);
+  } catch (error) {
+    handleRequestError(error, res);
+  }
+};
+
+module.exports = { getUser, getUsers, postUser };

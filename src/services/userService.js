@@ -19,4 +19,14 @@ const getUsers = () => {
   return usersList;
 };
 
-module.exports = { getUser, getUsers };
+// TEST 3: create a user
+const createUser = ({ name, job }) => {
+  if (!name && !job)
+    throw new AppError("Required body field: {name, job}", 422);
+
+  const userCreated = userRepository.createUser({ name, job });
+
+  return userCreated;
+};
+
+module.exports = { getUser, getUsers, createUser };
