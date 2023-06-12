@@ -1,15 +1,13 @@
-var data =  require("./fakeData");
+const data = require("./fakeData");
 
-module.exports = function(req, res) {
-  
-    var name =  req.query.name;
+module.exports = function (req, res) {
+  const name = req.query.name;
 
-    for(let i = 0; i < data.length;  i++) {
-        if(i.name == name) {
-            data[i] = null;
-        }
+  for (let i = 0; i < data.length; i++) {
+    if (i.name == name) {
+      data[i] = null;
     }
+  }
 
-    res.send("success");
-
+  res.send("success");
 };
