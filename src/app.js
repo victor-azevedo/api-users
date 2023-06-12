@@ -5,12 +5,12 @@ const app = express();
 
 app.set("view engine", "jade");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(express.static(__dirname + "/public"));
 
-app.use(express.static(__dirname + "/public"));
-
-app.get("/", function (req, res) {
+app.get("/", function (_req, res) {
   res.send(`get user/ </br>
   get users/ </br>
   post users/ </br>
