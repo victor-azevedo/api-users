@@ -1,4 +1,4 @@
-# Resolução o desafio
+# Resolução do desafio
 
 ## Introdução
 
