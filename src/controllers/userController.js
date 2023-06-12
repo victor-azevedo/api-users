@@ -65,4 +65,24 @@ const updateUser = (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers, postUser, deleteUser, updateUser };
+// TEST 5: update a user
+const userAccess = (req, res) => {
+  try {
+    const { name } = req.query;
+
+    const userAccessCount = userService.userAccess(name);
+
+    return res.send(`Usuário ${name} foi lido ${userAccessCount} vezes.`);
+  } catch (error) {
+    handleRequestError(error, res);
+  }
+};
+
+module.exports = {
+  getUser,
+  getUsers,
+  postUser,
+  deleteUser,
+  updateUser,
+  userAccess,
+};

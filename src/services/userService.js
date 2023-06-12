@@ -49,7 +49,27 @@ const updateUser = ({ id, name, job }) => {
   return userUpdated;
 };
 
-module.exports = { getUser, getUsers, createUser, deleteUser, updateUser };
+// TEST 5: update a user
+const userAccess = (name) => {
+  validateUserQueryName(name);
+
+  const userAccessCount = userRepository.userAccess(name);
+
+  if (userAccessCount === false) throw new AppError("User not found", 404);
+
+  return userAccessCount;
+};
+
+module.exports = {
+  getUser,
+  getUsers,
+  createUser,
+  deleteUser,
+  updateUser,
+  userAccess,
+};
+
+// LOCAL FUNCTIONS:
 
 const validateUserBody = ({ name, job }) => {
   if (!name || !job)
