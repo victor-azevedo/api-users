@@ -1,4 +1,4 @@
-const data = require("../../mock/fakeData");
+const data = require("../../mock/usersData");
 
 const getUser = (req, res, next) => {
   const name = req.query.name;
