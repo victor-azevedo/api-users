@@ -19,7 +19,7 @@ const getUsers = () => {
   return usersList;
 };
 
-// TEST 3: create a user
+// TEST 2: create a user
 const createUser = ({ name, job }) => {
   if (!name && !job)
     throw new AppError("Required body field: {name, job}", 422);
@@ -29,7 +29,7 @@ const createUser = ({ name, job }) => {
   return userCreated;
 };
 
-// TEST 4: delete a user
+// TEST 3: delete a user
 const deleteUser = (name) => {
   if (!name) throw new AppError("Required query field: name", 400);
 
@@ -39,4 +39,17 @@ const deleteUser = (name) => {
   return;
 };
 
-module.exports = { getUser, getUsers, createUser, deleteUser };
+// TEST 4: update a user
+const updateUser = ({ id, name, job }) => {
+  if (!id) throw new AppError("Required query field: id must be a number", 422);
+  if (!name || !job)
+    throw new AppError("Required body field: {name, job}", 422);
+
+  const userUpdated = userRepository.updateUser({ id, name, job });
+
+  if (!userUpdated) throw new AppError("User not found", 404);
+
+  return userUpdated;
+};
+
+module.exports = { getUser, getUsers, createUser, deleteUser, updateUser };

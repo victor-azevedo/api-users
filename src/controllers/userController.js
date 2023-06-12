@@ -23,7 +23,7 @@ const getUsers = (_req, res) => {
   }
 };
 
-// TEST 3: create a user
+// TEST 2: create a user
 const postUser = (req, res) => {
   try {
     const { name, job } = req.body;
@@ -36,7 +36,7 @@ const postUser = (req, res) => {
   }
 };
 
-// TEST 4: delete a user
+// TEST 3: delete a user
 const deleteUser = (req, res) => {
   try {
     const { name } = req.query;
@@ -51,4 +51,18 @@ const deleteUser = (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers, postUser, deleteUser };
+// TEST 4: update a user
+const updateUser = (req, res) => {
+  try {
+    const { id } = req.query;
+    const { name, job } = req.body;
+
+    const userUpdated = userService.updateUser({ id: parseInt(id), name, job });
+
+    return res.send(userUpdated);
+  } catch (error) {
+    handleRequestError(error, res);
+  }
+};
+
+module.exports = { getUser, getUsers, postUser, deleteUser, updateUser };

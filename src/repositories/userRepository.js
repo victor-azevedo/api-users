@@ -5,7 +5,7 @@ const getUsers = () => {
   return users;
 };
 
-// TEST 3: create a user
+// TEST 2: create a user
 const createUser = (newUser) => {
   const id = createIdToNewUser();
 
@@ -15,7 +15,7 @@ const createUser = (newUser) => {
   return newUserData;
 };
 
-// TEST 4: delete a user
+// TEST 3: delete a user
 const deleteUser = (name) => {
   const indexUserToDelete = usersData.findIndex((user) => user.name === name);
   if (indexUserToDelete < 0) return false;
@@ -24,10 +24,19 @@ const deleteUser = (name) => {
   return true;
 };
 
+// TEST 4: delete a user
+const updateUser = ({ id, name, job }) => {
+  const indexUserToUpdate = usersData.findIndex((user) => user.id === id);
+  if (indexUserToUpdate < 0) return false;
+
+  usersData[indexUserToUpdate] = { id, name, job };
+  return usersData[indexUserToUpdate];
+};
+
 // Create a id for new user
 const createIdToNewUser = () => {
   const { id: lastUsersDataId } = usersData.slice(-1)[0];
   return lastUsersDataId + 1;
 };
 
-module.exports = { getUsers, createUser, deleteUser };
+module.exports = { getUsers, createUser, deleteUser, updateUser };
