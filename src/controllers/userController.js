@@ -1,6 +1,7 @@
 const userService = require("../services/userService");
 const handleRequestError = require("../errors/handleRequestError");
 
+// TEST 1: get a user
 const getUser = (req, res) => {
   try {
     const { name } = req.query;
@@ -13,6 +14,7 @@ const getUser = (req, res) => {
   }
 };
 
+// TEST 1: get users
 const getUsers = (_req, res) => {
   try {
     const usersList = userService.getUsers();
@@ -45,7 +47,7 @@ const deleteUser = (req, res) => {
 
     return res
       .status(200)
-      .send({ message: `User '${name}' deleted with success` });
+      .send({ message: `Usuário '${name}' deletado com sucesso` });
   } catch (error) {
     handleRequestError(error, res);
   }
@@ -72,7 +74,9 @@ const userAccess = (req, res) => {
 
     const userAccessCount = userService.userAccess(name);
 
-    return res.send(`Usuário ${name} foi lido ${userAccessCount} vezes.`);
+    return res.send({
+      message: `Usuário ${name} foi lido ${userAccessCount} vezes.`,
+    });
   } catch (error) {
     handleRequestError(error, res);
   }

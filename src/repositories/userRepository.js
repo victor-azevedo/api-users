@@ -2,6 +2,7 @@ const usersData = require("../../mock/usersData");
 
 const usersAccessTable = {};
 
+// TEST 1: get a user
 const getUser = (name) => {
   const indexUserToFind = findIndex({ name });
   if (indexUserToFind < 0) return false;
@@ -11,6 +12,7 @@ const getUser = (name) => {
   return usersData[indexUserToFind];
 };
 
+// TEST 2: get users
 const getUsers = () => {
   const users = usersData;
   return users;

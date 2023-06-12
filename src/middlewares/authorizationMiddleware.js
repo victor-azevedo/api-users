@@ -1,6 +1,7 @@
 const AppError = require("../errors/AppError");
 const handleRequestError = require("../errors/handleRequestError");
 
+// TEST 6: middleware to authorize client
 const authorizationMiddleware = (req, res, next) => {
   try {
     // authHeader should be "Bearer token_jwt_test"

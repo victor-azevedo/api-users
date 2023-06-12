@@ -2,7 +2,7 @@ const userRepository = require("../repositories/userRepository");
 const AppError = require("../errors/AppError");
 const notFoundError = require("../errors/notFoundError");
 
-// TEST 1:
+// TEST 1: get a user
 const getUser = (name) => {
   validateUserQueryName(name);
 
@@ -13,6 +13,7 @@ const getUser = (name) => {
   return userFound;
 };
 
+// TEST 1: get users
 const getUsers = () => {
   const usersList = userRepository.getUsers();
 
