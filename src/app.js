@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const userRouter = require("./routers/userRouter");
+
 const app = express();
 
 app.set("view engine", "jade");
@@ -24,7 +25,4 @@ app.get("/", function (req, res) {
 
 app.use(userRouter);
 
-const PORT = 3000;
-app.listen(PORT, function () {
-  console.log(`Express server listening on port ${PORT}`);
-});
+module.exports = app;
