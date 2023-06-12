@@ -1,5 +1,10 @@
 const usersData = require("../../mock/usersData");
 
+const getUser = (name) => {
+  const userFound = usersData.find((user) => user.name === name);
+  return userFound;
+};
+
 const getUsers = () => {
   const users = usersData;
   return users;
@@ -33,10 +38,10 @@ const updateUser = ({ id, name, job }) => {
   return usersData[indexUserToUpdate];
 };
 
+module.exports = { getUser, getUsers, createUser, deleteUser, updateUser };
+
 // Create a id for new user
 const createIdToNewUser = () => {
   const { id: lastUsersDataId } = usersData.slice(-1)[0];
   return lastUsersDataId + 1;
 };
-
-module.exports = { getUsers, createUser, deleteUser, updateUser };

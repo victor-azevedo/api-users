@@ -1,12 +1,11 @@
 const userRepository = require("../repositories/userRepository");
 const AppError = require("../errors/AppError");
 
+// TEST 1:
 const getUser = (name) => {
-  if (!name) throw new AppError("Required query field: name", 400);
+  validateUserQueryName(name);
 
-  const users = userRepository.getUsers();
-
-  const userFound = users.find((user) => user.name === name);
+  const userFound = userRepository.getUser(name);
 
   if (!userFound) throw new AppError("User not found", 404);
 
@@ -21,8 +20,7 @@ const getUsers = () => {
 
 // TEST 2: create a user
 const createUser = ({ name, job }) => {
-  if (!name && !job)
-    throw new AppError("Required body field: {name, job}", 422);
+  validateUserBody({ name, job });
 
   const userCreated = userRepository.createUser({ name, job });
 
@@ -31,7 +29,7 @@ const createUser = ({ name, job }) => {
 
 // TEST 3: delete a user
 const deleteUser = (name) => {
-  if (!name) throw new AppError("Required query field: name", 400);
+  validateUserQueryName(name);
 
   const isUserDeleted = userRepository.deleteUser(name);
   if (!isUserDeleted) throw new AppError("User not found", 404);
@@ -41,9 +39,8 @@ const deleteUser = (name) => {
 
 // TEST 4: update a user
 const updateUser = ({ id, name, job }) => {
-  if (!id) throw new AppError("Required query field: id must be a number", 422);
-  if (!name || !job)
-    throw new AppError("Required body field: {name, job}", 422);
+  validateUserQueryId(id);
+  validateUserBody({ name, job });
 
   const userUpdated = userRepository.updateUser({ id, name, job });
 
@@ -53,3 +50,16 @@ const updateUser = ({ id, name, job }) => {
 };
 
 module.exports = { getUser, getUsers, createUser, deleteUser, updateUser };
+
+const validateUserBody = ({ name, job }) => {
+  if (!name || !job)
+    throw new AppError("Required body field: {name, job}", 422);
+};
+
+const validateUserQueryName = (name) => {
+  if (!name) throw new AppError("Required query field: name", 400);
+};
+
+const validateUserQueryId = (id) => {
+  if (!id) throw new AppError("Required query field: id must be a number", 422);
+};
