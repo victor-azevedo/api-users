@@ -55,6 +55,7 @@ GET em /user
 GET em /users 
 
 Validação do parâmetro 'name' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+
 Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
 
 ## Melhorias teste2.js
@@ -62,9 +63,13 @@ Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não dep
 POST em /users
 
 Corrigido erro do nome da variável 'job'.
+
 Validação dos parâmetros 'name' e 'job' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+
 Validação que evita a criação de usuários com 'name' já existente na base de dados.
+
 Inserção de 'id' ao usuário criado.
+
 Resposta adequada: HTTP status 201 para entidades que são criadas.
 
 
@@ -73,7 +78,9 @@ Resposta adequada: HTTP status 201 para entidades que são criadas.
 DELETE em /users
 
 Validação do parâmetro 'name' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+
 Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
+
 Resposta ao cliente em JSON com campo message.
 
 ## Melhorias teste4.js
@@ -81,7 +88,9 @@ Resposta ao cliente em JSON com campo message.
 PUT em /users
 
 Validação do parâmetro 'id' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+
 Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
+
 Validação que evita a atualizar os dados de um usuário com 'name' já existente de outro usuário.
 
 
@@ -90,6 +99,7 @@ Validação que evita a atualizar os dados de um usuário com 'name' já existen
 GET /users/access
 
 Validação do parâmetro 'name' sem quebrar a aplicação e gerando resposta adequada ao cliente.
+
 Busca com complexidade de tempo O(1), ou seja, o tempo de busca do dado não depende do tamanho da base dados.
 
 ## Melhorias teste6.js
