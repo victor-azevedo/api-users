@@ -99,8 +99,45 @@ Criado middleware de autenticação para proteger as rotas DELETE /users e PUT /
 Para testar como está implementado neste desafio, inclua o seguinte dado ho 'Header' da requisição HTTP:
 ```"Authorization": "Bearer token_jwt_test"```
 
+## Como Rodar a aplicação
+
+1. Clonar este repositório;
+
+```bash
+git clone git@github.com:victor-azevedo/api-users.git
+cd api-users
+```
+
+2. Instalar as dependência:
+
+```bash
+npm i
+```
+
+3. Criar `.env` baseado no `.env.example`, se desejar alterar a porta que a aplicação vai 'rodar';
+
+4. Iniciar a aplicação:
+
+```bash
+npm start
+```
+
+Application default PORT: 3000.
+
+
+### Autenticação
+
+Rotas autenticadas:
+
+DELETE /users?name={name}
+PUT /users?id={id}
+
+Autenticação simulando Bearer token. Enviar no Header da requisição HTTP:
+```"Authorization": "Bearer token_jwt_test"```
+
+
 ## Conclusão
 
-A aplicação passou ter uma estrutura organizacional que permite uma escalabilidade e melhor manutenção. Possui uma melhor leitura e interpretação do código po humanos. Melhoria de desempenho, gerenciamento de erros evitando 'crash' da aplicação e melhores resposta ao cliente.
-Melhoria podem ser feitas com testes e uma roda ta documentação.
+A aplicação passou ter uma estrutura organizacional que permite uma escalabilidade e melhor manutenção. Implementado busca por 'hashtable', o que melhora substancialmente o tempo de busca em dados de dimensões elevadas. Possui uma melhor leitura e interpretação do código po humanos. Melhoria de desempenho, gerenciamento de erros evitando 'crash' da aplicação e melhores resposta ao cliente.
+Melhoria podem ser feitas com testes unitário e integração e uma rota ta documentação.
 
